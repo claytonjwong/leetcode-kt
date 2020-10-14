@@ -59,3 +59,24 @@ class Solution {
         return maxOf(best(0), best(1))                      //  ✅ with first house xor 🚫 without first house
     }
 }
+
+// bottom-up memory optimization
+class Solution {
+    fun rob(A: IntArray): Int {
+        var N = A.size
+        if (N == 1)                           // 💎 corner case
+            return A[0]
+        fun best(start: Int): Int {
+            var end = N - 1
+            if (start == 0)
+                --end
+            var (a, b, c) = arrayOf(0, 0, 0)  // 🤔 memo + 🛑 base cases (ie. a = 0 and b = 0)
+            for (i in end downTo start) {
+                c = maxOf(A[i] + a, b)        // ✅ with i-th house xor 🚫 without i-th house
+                a = b; b = c                  // 👉 slide window
+            }
+            return c
+        }
+        return maxOf(best(0), best(1))        //  ✅ with first house xor 🚫 without first house
+    }
+}
