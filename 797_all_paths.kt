@@ -18,7 +18,7 @@ class Solution {
             else
                 A[u].forEach { v ->
                     path.add(v)           // ✅ 👀 forward-tracking
-                    go(path)              // 🚀 explore edge u -> v with implicit
+                    go(path)              // 🚀 explore edge u -> v
                     path.remove(v)        // 🚫 👀 back-tracking
                 }
         }
