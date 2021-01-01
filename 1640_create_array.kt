@@ -5,6 +5,7 @@
  * A: https://leetcode.com/problems/check-array-formation-through-concatenation/discuss/919391/Kt-Js-Py3-Cpp-Do-we-%22have%22-what-we-%22need%22
  */
 
+// queue
 class Solution {
     fun canFormArray(need: IntArray, have: Array<IntArray>): Boolean {
         var q: Queue<Int> = LinkedList<Int>()
@@ -29,5 +30,24 @@ class Solution {
                 return false
         }
         return true
+    }
+}
+
+// make
+class Solution {
+    fun canFormArray(need: IntArray, have: Array<IntArray>): Boolean {
+        var m = mutableMapOf<Int, Int>()
+        var make = mutableListOf<Int>()
+        have.forEachIndexed { i, A -> m[A[0]] = i }
+        var i = 0
+        var N = need.size
+        while (i < N) {
+            if (!m.contains(need[i]))
+                return false
+            var j = m[need[i]]!!
+            make.addAll(have[j].toList())
+            i += have[j].size
+        }
+        return need.toList() == make
     }
 }
