@@ -7,15 +7,14 @@
 
 class Solution {
     fun countPairs(A: IntArray): Int {
-        var mod = (1e9 + 7).toLong()
         var cnt = 0
-        var m = mutableMapOf<Long, Int>()
-        A.map{ it.toLong() }.forEach { x ->
-            var t: Long = 1
-            while (t <= (100 * 1e9).toLong()) {
-                var y: Long = t - x
+        var m = mutableMapOf<Int, Int>()
+        A.forEach { x ->
+            var t = 1
+            while (t <= 1 shl 21) {
+                var y = t - x
                 if (m.contains(y))
-                    cnt = ((cnt + m[y]!!) % mod).toInt()
+                    cnt = (cnt + m[y]!!) % (1e9 + 7).toInt()
                 t = t shl 1
             }
             m[x] = 1 + m.getOrDefault(x, 0)
